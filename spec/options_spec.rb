@@ -78,11 +78,35 @@ describe Options do
         end
       end
 
+      context 'if specified an empty string as development team' do
+        it 'should raise an error' do
+          expect do
+            @options[:specifier] = 'Test'
+            @options[:team_id] = ''
+
+            Options.new(@options)
+          end.to raise_error(/Development team has a wrong format./)
+        end
+      end
+
+      context 'if specified development team in a wrong format' do
+        it 'should raise an error' do
+          expect do
+            @options[:specifier] = 'Test'
+            @options[:team_id] = 'Wrong format'
+
+            Options.new(@options)
+          end.to raise_error(/Development team has a wrong format./)
+        end
+      end
+
       context 'if specified all options correctly' do
         it 'returns a new instance' do
           @options[:specifier] = 'Test'
           @options[:configuration] = 'Release'
           @options[:target] = 'Test'
+          @options[:team_id] = 'ABC45DRI2DD'
+          @options[:identity] = 'iPhone Developer'
 
           expect(Options.new(@options)).not_to be_nil
         end

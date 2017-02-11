@@ -25,6 +25,8 @@ module XCProvisioner
 
           show_updating_message(target, config)
           set_provisioning_profile_specifier(config, options.specifier)
+          set_development_team(config, options.team_id)
+          set_signing_identity(config, options.identity)
         end
       end
 
@@ -62,6 +64,20 @@ module XCProvisioner
     def set_provisioning_profile_specifier(configuration, specifier)
       specifier_key = 'PROVISIONING_PROFILE_SPECIFIER'
       configuration.build_settings[specifier_key] = specifier
+    end
+
+    def set_development_team(configuration, team_id)
+      return if team_id.nil?
+
+      key = 'DEVELOPMENT_TEAM'
+      configuration.build_settings[key] = team_id
+    end
+
+    def set_signing_identity(configuration, identity)
+      return if identity.nil?
+
+      key = 'CODE_SIGN_IDENTITY'
+      configuration.build_settings[key] = identity
     end
 
     def switch_to_manual_signing(target)

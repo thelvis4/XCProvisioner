@@ -9,6 +9,8 @@ module XCProvisioner
     attr_reader :specifier
     attr_reader :target
     attr_reader :configuration
+    attr_reader :team_id
+    attr_reader :identity
 
     # Initialize a new Options instance
     # Params:
@@ -21,6 +23,8 @@ module XCProvisioner
       @specifier = hash[:specifier]
       @target = hash[:target]
       @configuration = hash[:configuration]
+      @team_id = hash[:team_id]
+      @identity = hash[:identity]
     end
 
     private
@@ -34,6 +38,7 @@ module XCProvisioner
       validate_specifier(options[:specifier])
       validate_target(options[:target])
       validate_configuration(options[:configuration])
+      validate_development_team(options[:team_id])
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -68,6 +73,16 @@ module XCProvisioner
       return if configuration.nil?
 
       raise OptionError, 'Invalid configuration name' if configuration.empty?
+    end
+
+    def validate_development_team(id)
+      return if id.nil?
+
+      return true if id =~ /([a-zA-Z]|[0-9]){10}/
+
+      message = ['Development team has a wrong format.
+        Expected 10 digits, something like A1B2C3D4E5'].join(' ')
+      raise OptionError, message
     end
   end
 end
