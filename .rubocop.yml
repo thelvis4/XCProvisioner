@@ -1,0 +1,7 @@
+LineLength:
+  Exclude:
+    - xcprovisioner.gemspec
+
+AllCops:
+  Exclude:
+    - lib/xcprovisioner.rb

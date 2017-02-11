@@ -1,0 +1,13 @@
+sudo: false
+language: ruby
+rvm:
+  - 2.3.0
+  - 2.0.0
+  - 2.1.0
+os:
+  - osx
+
+before_install: gem install bundler -v 1.13.6
+
+script:
+  - bundle exec rake spec
