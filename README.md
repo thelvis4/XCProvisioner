@@ -33,8 +33,8 @@ Or install it yourself as:
 
 ## Usage
 ```sh
-xcprovisioner 
---project YourProject.xcodeproj \ 
+xcprovisioner \
+--project YourProject.xcodeproj \
 --target TargetName \
 --configuration Release \
 --specifier 'Your Project AppStore Profile'
