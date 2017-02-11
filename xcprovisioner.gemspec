@@ -8,7 +8,18 @@ Gem::Specification.new do |spec|
   spec.version       = XCProvisioner::VERSION
   spec.authors       = ['Andrei Raifura']
   spec.email         = ['thelvis4@gmail.com']
-  spec.summary       = 'Set provisioning profile specifier after switching to Manual signing (if needed).'
+  spec.summary       = %(
+  Set provisioning profile specifier after switching to Manual signing mode
+  (if needed).
+  ).strip.gsub(/\s+/, ' ')
+
+  spec.description = %(
+  XCProvisioner helps you to bypass the shortcomings of Xcode 8 when you
+  use CI while having Automatic signing enabled. It helps you switch to
+  Manual signing and set the provisioning profile specifier for the targets that
+  requires special signing care.
+  ).strip.gsub(/\s+/, ' ')
+
   spec.homepage      = 'https://github.com/thelvis4/XCProvisioner'
   spec.license       = 'MIT'
 
@@ -22,7 +33,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'xcodeproj', '~> 1.4'
 
-  spec.add_runtime_dependency 'activesupport',  '>= 3', '< 5.0'
+  spec.add_runtime_dependency 'activesupport', '>= 3', '< 5.0'
 
   spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'rake', '~> 10.0'
