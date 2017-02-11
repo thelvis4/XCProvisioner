@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+if $PROGRAM_NAME == __FILE__
+  $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+end
+
+require 'xcprovisioner'
+require 'optparse'
+
+options = {}
+
+# rubocop:disable LineLength
+OptionParser.new do |opts|
+  opts.banner = 'Usage: xcprovisioner [options]'
+
+  opts.on('-p', '--project FILE or PATH', 'Path to the .xcodeproj file') do |path|
+    options[:project] = path
+  end
+
+  opts.on('-s', '--specifier STRING', 'The name of the new provisioning profile specifier to use') do |specifier|
+    options[:specifier] = specifier
+  end
+
+  opts.on('-t', '--target NAME', 'The target for which to set the Provisioning Profile Specifier (optional)') do |target|
+    options[:target] = target
+  end
+
+  opts.on('-c', '--configuration NAME', 'The configuration for which to set the Provisioning Profile Specifier (optional)') do |configuration|
+    options[:configuration] = configuration
+  end
+
+  opts.on_tail('-h', '--help', 'Show this message') do
+    puts opts
+    exit
+  end
+
+  opts.on_tail('-v', '--version', 'Show version') do
+    puts XCProvisioner::VERSION
+    exit
+  end
+
+  opts.parse!
+end
+# rubocop:enable LineLength
+
+def exit_with_option_error(message)
+  STDERR.puts "[!] #{message}"
+  exit 1
+end
+
+begin
+  options = XCProvisioner::Options.new(options)
+  XCProvisioner::Runner.new(options).run
+rescue XCProvisioner::OptionError => error
+  exit_with_option_error(error.message)
+end
