@@ -2,6 +2,7 @@
 
 XCProvisioner allows you to achieve the best of both worlds: to have Xcode Automatic signing while writing code and fine-grained control over the provisioning in CI.
 
+[![Build Status](https://travis-ci.org/thelvis4/XCProvisioner.svg?branch=master)](https://travis-ci.org/thelvis4/XCProvisioner)
 
 ## Motivation
 
