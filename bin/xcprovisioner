@@ -29,6 +29,14 @@ OptionParser.new do |opts|
     options[:configuration] = configuration
   end
 
+  opts.on('-d', '--team ID', 'Your 10 digit Development team id, something like A1B2C3D4E5 (optional))') do |id|
+    options[:team_id] = id
+  end
+
+  opts.on('-i', '--identity STRING', 'A general (e.g. "iPhone Distribution") or specific code signing identity (optional)') do |identity|
+    options[:identity] = identity
+  end
+
   opts.on_tail('-h', '--help', 'Show this message') do
     puts opts
     exit

@@ -38,7 +38,9 @@ xcprovisioner \
 --project YourProject.xcodeproj \
 --target TargetName \
 --configuration Release \
---specifier 'Your Project AppStore Profile'
+--specifier 'Your Project AppStore Profile' \
+--identity 'iPhone Distribution' \
+--team 'A1B2C3D4E5'
 ```
 
 ## Development
