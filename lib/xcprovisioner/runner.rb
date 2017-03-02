@@ -78,6 +78,8 @@ module XCProvisioner
 
       key = 'CODE_SIGN_IDENTITY'
       configuration.build_settings[key] = identity
+      key = 'CODE_SIGN_IDENTITY[sdk=iphoneos*]'
+      configuration.build_settings[key] = identity
     end
 
     def switch_to_manual_signing(target)
