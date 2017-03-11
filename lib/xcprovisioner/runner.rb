@@ -62,22 +62,29 @@ module XCProvisioner
     end
 
     def set_provisioning_profile_specifier(configuration, specifier)
-      specifier_key = 'PROVISIONING_PROFILE_SPECIFIER'
-      configuration.build_settings[specifier_key] = specifier
+      keys = settings_keys_for_key(configuration, 'PROVISIONING_PROFILE_SPECIFIER')
+
+      keys.each do |key|
+        configuration.build_settings[key] = specifier
+      end
     end
 
     def set_development_team(configuration, team_id)
       return if team_id.nil?
 
-      key = 'DEVELOPMENT_TEAM'
-      configuration.build_settings[key] = team_id
+      keys = settings_keys_for_key(configuration, 'DEVELOPMENT_TEAM')
+      keys.each do |key|
+        configuration.build_settings[key] = team_id
+      end
     end
 
     def set_signing_identity(configuration, identity)
       return if identity.nil?
 
-      key = 'CODE_SIGN_IDENTITY'
-      configuration.build_settings[key] = identity
+      keys = settings_keys_for_key(configuration, 'CODE_SIGN_IDENTITY')
+      keys.each do |key|
+        configuration.build_settings[key] = identity
+      end
     end
 
     def switch_to_manual_signing(target)
@@ -97,6 +104,19 @@ module XCProvisioner
         "for target '#{target.name}' and configuration '#{configuration.name}'"
       ].join(' ')
       puts message
+    end
+
+    def settings_keys_for_key(configuration, key)
+      keys = settings_keys_matching_key(configuration, key)
+      keys.include?(key) ? keys : keys.push(key)
+    end
+
+    # Find all settings key for provided key, including keys with SDK specifiers
+    def settings_keys_matching_key(configuration, key)
+      configuration.build_settings.keys.select do |k|
+        # Matches any of: "key", "key[anything here]"
+        k.match(/^#{key}+(\[.*\])?$/)
+      end
     end
   end
 end
