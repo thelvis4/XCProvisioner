@@ -90,6 +90,7 @@ module XCProvisioner
     def switch_to_manual_signing(target)
       target_id = target.uuid
       attributes = project.root_object.attributes['TargetAttributes']
+      attributes[target_id] ||= {}
       target_attributes = attributes[target_id]
       target_attributes['ProvisioningStyle'] = 'Manual'
     end
